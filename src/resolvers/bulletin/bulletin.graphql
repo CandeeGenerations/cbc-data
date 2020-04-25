@@ -1,0 +1,16 @@
+type BulletinResponse {
+  id: ID!
+  month: Int!
+  year: Int!
+  date: String!
+  pdf: String!
+  image: String!
+}
+
+type BulletinsResponse {
+  bulletins: [BulletinResponse]!
+}
+
+type Query {
+  getBulletins: BulletinsResponse
+}
