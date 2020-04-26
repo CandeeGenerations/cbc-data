@@ -1,28 +1,14 @@
 import {Resolver, Query} from '@nestjs/graphql'
 
 import {BulletinsResponse} from 'src/graphql.schema'
+import {BulletinService} from '../../services/bulletin.service'
 
 @Resolver('Bulletin')
 export class BulletinResolvers {
-  // todo : import the service
-  // public constructor() {}
+  public constructor(private readonly bulletinService: BulletinService) {}
 
   @Query()
   public async getBulletins(): Promise<BulletinsResponse> {
-    // todo : call the service
-    const response = new BulletinsResponse()
-
-    response.bulletins = [
-      {
-        id: '1',
-        month: 3,
-        year: 2020,
-        date: 'Mar 29, 2020',
-        pdf: 'pdf-url',
-        image: 'image-url',
-      },
-    ]
-
-    return response
+    return this.bulletinService.getBulletins()
   }
 }
