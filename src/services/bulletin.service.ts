@@ -1,30 +1,26 @@
 import {Injectable} from '@nestjs/common'
-import {ConfigService} from '@nestjs/config'
+import {PrismaClient} from '@prisma/client'
 
 import {BulletinsResponse} from 'src/graphql.schema'
+import * as bulletinMorphs from 'src/morphs/bulletin.morph'
 
 @Injectable()
 export class BulletinService {
-  public constructor(private readonly configService: ConfigService) {}
+  private readonly prisma: PrismaClient
 
-  public getBulletins(): BulletinsResponse {
-    const dbUri = this.configService.get('databaseUri')
+  public constructor() {
+    this.prisma = new PrismaClient()
+  }
 
-    console.log('dbUri :', dbUri)
+  public async getBulletins(): Promise<BulletinsResponse> {
+    const bulletins = await this.prisma.bulletins.findMany()
 
-    const response = new BulletinsResponse()
+    await this.prisma.disconnect()
 
-    response.bulletins = [
-      {
-        id: '1',
-        month: 3,
-        year: 2020,
-        date: 'Mar 29, 2020',
-        pdf: 'pdf-url',
-        image: 'image-url',
-      },
-    ]
-
-    return response
+    return {
+      bulletins: bulletins.map((bulletin) =>
+        bulletinMorphs.morphBulletin(bulletin),
+      ),
+    }
   }
 }
