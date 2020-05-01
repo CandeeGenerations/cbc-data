@@ -12,6 +12,7 @@ import {BulletinResolvers} from 'src/resolvers/bulletin/bulletin.resolvers'
   imports: [
     GraphQLModule.forRoot({
       typePaths: ['./src/**/*.graphql'],
+      playground: true,
     }),
     ConfigModule.forRoot({
       load: [configuration],
