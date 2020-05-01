@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "engines": {
-    "node": "10.19.x"
+    "node": "10.16.x"
   },
   "scripts": {
     "generate:typings": "ts-node ./src/generate-typings",
