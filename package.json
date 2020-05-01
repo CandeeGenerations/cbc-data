@@ -5,6 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "10.16.x"
+  },
   "scripts": {
     "generate:typings": "ts-node ./src/generate-typings",
     "prebuild": "rimraf dist",
